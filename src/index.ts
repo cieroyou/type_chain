@@ -49,7 +49,6 @@ const getNewTimeStamp = (): number => Math.round(new Date().getTime() / 1000);
 
 const createNewBlock = (data: string): Block => {
   const previousBlock: Block = getLatestBlock();
-  console.log("previous", previousBlock);
   const newIndex: number = previousBlock.index + 1;
   const newTimestamp: number = getNewTimeStamp();
   const newHash: string = Block.cacluateBlockHash(
@@ -66,6 +65,8 @@ const createNewBlock = (data: string): Block => {
     data,
     newTimestamp
   );
+
+  addBlock(newBlock);
   return newBlock;
 };
 
@@ -86,10 +87,9 @@ const isBlockValid = (candidateBlock: Block, previousBlock: Block): boolean => {
     return false;
   } else if (getHashforBlock(candidateBlock) !== candidateBlock.hash) {
     return false;
-  }else{
-    reurn true;
+  } else {
+    return true;
   }
-
 };
 
 const addBlock = (candidateBlock: Block): void => {
@@ -97,7 +97,10 @@ const addBlock = (candidateBlock: Block): void => {
     blockchain.push(candidateBlock);
   }
 };
-console.log(createNewBlock("hello"));
-console.log(createNewBlock("Bye"));
+
+console.log(createNewBlock("second block"));
+console.log(createNewBlock("third block"));
+console.log(createNewBlock("fourth block"));
+
 console.log(blockchain);
 export {};
